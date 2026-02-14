@@ -13,6 +13,7 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Estructuras Lineales](#estructuras-de-datos-lineales)
   - [Arreglo Estático](#arreglo-estático)
+  - [Arreglo Dinámico](#arreglo-dinámico)
 
 ## Estructura del Proyecto
 
@@ -66,5 +67,34 @@ Al estar almacenado de forma contigua, el acceso a cualquier elemento mediante s
 
 Desde una perspectiva conceptual, el Arreglo Estático representa la forma más básica y fundamental de almacenamiento secuencial, sirviendo como base para comprender estructuras dinámicas más avanzadas como los arreglos redimensionables.
 
+---
 
+### Arreglo Dinámico
 
+El Arreglo Dinámico (Dynamic Array) es una extensión del concepto de arreglo estático, diseñado para superar la limitación de tamaño fijo y permitir que la estructura crezca o se reduzca dinámicamente según las necesidades del programa.
+
+A diferencia del arreglo estático, cuya capacidad se define en tiempo de compilación, el arreglo dinámico gestiona su memoria en el heap, aumentando su capacidad automáticamente cuando se supera el límite actual, o permitiendo redimensionamiento manual mediante funciones específicas.
+
+#### Filosofía y características principales:
+- Crecimiento automático: Cuando se intenta agregar un elemento y no hay suficiente espacio, el arreglo duplica su capacidad interna, copiando los elementos existentes a un nuevo bloque de memoria. Esto asegura eficiencia amortizada en operaciones de inserción.
+- Acceso aleatorio rápido: Al igual que los arreglos estáticos, el acceso por índice tiene complejidad O(1), ya que los elementos se almacenan de forma contigua.
+- Redimensionamiento manual: Además del crecimiento automático, es posible aumentar la capacidad de forma explícita mediante un método resize, preservando los datos existentes.
+- Flexibilidad y escalabilidad: Permite manejar colecciones de tamaño variable sin preocuparse por definir un límite máximo desde el inicio.	
+- Manejo seguro de memoria: Implementaciones modernas liberan automáticamente la memoria al destruir el objeto, evitando fugas de memoria.
+
+#### Ventajas del Arreglo Dinámico
+
+- No requiere conocer el tamaño máximo de antemano.
+- Permite crecer según la demanda sin perder datos.
+- Mantiene eficiencia en acceso y operaciones básicas.
+- Facilita la implementación de estructuras más complejas (listas, vectores, buffers dinámicos).
+
+#### Consideraciones y limitaciones
+- Las operaciones de crecimiento pueden implicar copias de todos los elementos, lo que genera un costo O(n) en tiempo de ejecución puntual; sin embargo, el costo amortizado por inserción sigue siendo O(1).
+- La memoria se asigna dinámicamente, por lo que existe sobrecosto de heap y posible fragmentación.
+- Inserciones en posiciones intermedias requieren desplazamientos, con complejidad O(n).
+
+El Arreglo Dinámico representa un equilibrio entre eficiencia y flexibilidad, combinando la rapidez de acceso de los arreglos estáticos con la capacidad de adaptarse a colecciones de tamaño variable.
+Es una estructura fundamental para entender y construir vectores, buffers y listas dinámicas, siendo un pilar en cualquier implementación de estructuras de datos modernas.
+
+---
