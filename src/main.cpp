@@ -1,4 +1,4 @@
-#include "examples/static_array_test.hpp"
+#include "../test/static_array_test.hpp"
 
 int main() {
     testStaticArray();
