@@ -17,7 +17,7 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
 
 ## Estructura del Proyecto
 
-```
+```txt
 DataStructure/
 ├── include/          # Tipos de estructuras de datos
 │   ├── linear/       # Lineales
@@ -30,6 +30,7 @@ DataStructure/
 ├── CMakeLists.txt
 └── README.md
 ```
+
 ---
 
 ## Estructuras de Datos Lineales
@@ -75,12 +76,16 @@ El Arreglo Dinámico (Dynamic Array) es una extensión del concepto de arreglo e
 
 A diferencia del arreglo estático, cuya capacidad se define en tiempo de compilación, el arreglo dinámico gestiona su memoria en el heap, aumentando su capacidad automáticamente cuando se supera el límite actual, o permitiendo redimensionamiento manual mediante funciones específicas.
 
-#### Filosofía y características principales:
-- Crecimiento automático: Cuando se intenta agregar un elemento y no hay suficiente espacio, el arreglo duplica su capacidad interna, copiando los elementos existentes a un nuevo bloque de memoria. Esto asegura eficiencia amortizada en operaciones de inserción.
-- Acceso aleatorio rápido: Al igual que los arreglos estáticos, el acceso por índice tiene complejidad O(1), ya que los elementos se almacenan de forma contigua.
-- Redimensionamiento manual: Además del crecimiento automático, es posible aumentar la capacidad de forma explícita mediante un método resize, preservando los datos existentes.
-- Flexibilidad y escalabilidad: Permite manejar colecciones de tamaño variable sin preocuparse por definir un límite máximo desde el inicio.	
-- Manejo seguro de memoria: Implementaciones modernas liberan automáticamente la memoria al destruir el objeto, evitando fugas de memoria.
+#### Características principales:
+**Crecimiento automático:** Cuando se intenta agregar un elemento y no hay suficiente espacio, el arreglo duplica su capacidad interna, copiando los elementos existentes a un nuevo bloque de memoria. Esto asegura eficiencia amortizada en operaciones de inserción.
+
+**Acceso aleatorio rápido:** Al igual que los arreglos estáticos, el acceso por índice tiene complejidad O(1), ya que los elementos se almacenan de forma contigua.
+
+**Redimensionamiento manual:** Además del crecimiento automático, es posible aumentar la capacidad de forma explícita mediante un método resize, preservando los datos existentes.
+
+**Flexibilidad y escalabilidad:** Permite manejar colecciones de tamaño variable sin preocuparse por definir un límite máximo desde el inicio.	
+
+**Manejo seguro de memoria:** Implementaciones modernas liberan automáticamente la memoria al destruir el objeto, evitando fugas de memoria.
 
 #### Ventajas del Arreglo Dinámico
 
