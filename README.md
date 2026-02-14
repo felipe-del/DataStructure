@@ -14,6 +14,8 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
 - [Estructuras Lineales](#estructuras-de-datos-lineales)
   - [Arreglo Estático](#arreglo-estático)
   - [Arreglo Dinámico](#arreglo-dinámico)
+  - [Listas Enlazadas](#listas-enlazadas)
+    - [Lista Enlazada Simple](#lista-enlazada-simple)
 
 ## Estructura del Proyecto
 
@@ -98,3 +100,37 @@ El Arreglo Dinámico representa un equilibrio entre eficiencia y flexibilidad, c
 Es una estructura fundamental para entender y construir vectores, buffers y listas dinámicas, siendo un pilar en cualquier implementación de estructuras de datos modernas.
 
 ---
+
+## Listas Enlazadas
+
+Las listas enlazadas son estructuras de datos lineales en las que cada elemento se almacena en un nodo que contiene el valor y un puntero (o referencia) al siguiente nodo de la secuencia. A diferencia de los arreglos, los elementos no se almacenan de manera contigua en memoria, sino que se enlazan mediante referencias, lo que permite una gran flexibilidad en operaciones de inserción y eliminación.
+
+Las listas enlazadas se caracterizan por que cada nodo mantiene información sobre su contenido y cómo conectarse al siguiente nodo, y en algunos casos también al anterior. Esto permite que los elementos estén vinculados de manera secuencial sin requerir que se almacenen de forma contigua en memoria.
+
+Gracias a esta organización, las listas enlazadas pueden crecer o reducir su tamaño dinámicamente, sin necesidad de copiar grandes bloques de memoria, como sucede en los arreglos dinámicos al redimensionarse.
+
+El acceso a los elementos es secuencial: para llegar a un nodo específico es necesario recorrer la lista avanzando de nodo en nodo, por lo que el acceso aleatorio tiene complejidad O(n).
+
+En última instancia, las listas enlazadas constituyen la base para estructuras más complejas, como las listas doblemente enlazadas, listas circulares, pilas y colas, ofreciendo flexibilidad y eficiencia en operaciones de inserción y eliminación.
+
+> Las listas enlazadas destacan por su eficiencia en inserciones y eliminaciones en posiciones arbitrarias, especialmente cuando no se requiere acceso directo a elementos por índice. Sin embargo, su acceso secuencial y el costo adicional de los punteros son aspectos a considerar.
+
+### Lista Enlazada Simple
+
+La Lista Enlazada Simple es la forma más básica de lista enlazada. Cada nodo de esta lista contiene un valor, que es el dato que se desea almacenar, y un puntero al siguiente nodo, que conecta los elementos de manera secuencial. Esta organización permite que los elementos estén vinculados sin necesidad de ocupar posiciones contiguas en memoria.
+
+La lista mantiene referencias al head, que apunta al primer nodo, y al tail, que apunta al último nodo. Mantener un puntero al tail es opcional, pero resulta muy útil para optimizar inserciones al final de la lista.
+
+Entre las operaciones básicas de la Singly Linked List se encuentran la inserción, con métodos como push_front(val) para añadir un nodo al inicio de la lista (complejidad O(1)), y push_back(val) para añadir un nodo al final (O(n) si no se usa tail, O(1) si se mantiene el puntero tail). También se incluyen operaciones de eliminación, como pop_front() para eliminar el primer nodo (O(1)) y pop_back() para eliminar el último nodo (O(n) porque se debe recorrer la lista hasta el penúltimo).
+
+En cuanto al acceso, se puede obtener el valor del primer nodo con front() y del último con back(). Además, se pueden usar iteradores que permiten recorrer la lista de manera secuencial utilizando la sintaxis moderna de C++ (range-based for). Entre las utilidades adicionales se encuentran empty() para comprobar si la lista está vacía, size() para conocer la cantidad de elementos, y clear() para liberar toda la memoria asociada a los nodos.
+
+Las ventajas de la Singly Linked List incluyen inserciones y eliminaciones al inicio muy rápidas (O(1)), la ventaja de no tener que mover elementos como en un arreglo dinámico, y la flexibilidad de crecer o reducir su tamaño dinámicamente según las necesidades del programa.
+
+Sin embargo, también presenta limitaciones. El acceso aleatorio es lento (O(n)), ya que siempre hay que recorrer la lista nodo por nodo. Operaciones como pop_back() y el acceso al penúltimo nodo requieren recorrer la lista completa si no se mantiene una referencia adicional. Además, cada nodo consume memoria extra para almacenar el puntero al siguiente nodo, lo que genera un mayor consumo de memoria en comparación con un arreglo.
+
+La filosofía de implementación de una SinglyLinkedList moderna en C++ sigue buenas prácticas para garantizar eficiencia y seguridad. Se usan constructores explícitos para evitar conversiones implícitas peligrosas, y constructores de movimiento (T&&) para manejar de forma eficiente objetos pesados utilizando std::move. Se suele implementar un iterador interno para integrarla con range-based for, y las variables de miembro suelen terminar con _ para diferenciar claramente los atributos de las variables locales y mejorar la legibilidad del código.
+
+---
+
+_Isaac Brenes_
