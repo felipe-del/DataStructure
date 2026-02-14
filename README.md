@@ -2,18 +2,17 @@
 ![C++](https://img.shields.io/badge/C%2B%2B-20-blue)
 ![CMake](https://img.shields.io/badge/CMake-Build-red)
 
-## Índice
-
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Estructuras Lineales](#estructuras-de-datos-lineales)
-- [Arreglo Estático](#arreglo-estático)
-
-
 # Estructuras de Datos en C++
 
 Este repositorio reúne una colección de implementaciones propias de estructuras de datos desarrolladas en C++, concebidas con un enfoque formativo y técnico. Su objetivo es facilitar el estudio profundo de los principios fundamentales que sustentan cada estructura, incluyendo su organización interna, comportamiento en memoria y análisis de complejidad temporal y espacial.
 
 Todas las estructuras han sido implementadas desde cero, sin utilizar contenedores de la biblioteca estándar ni dependencias externas, con el propósito de promover una comprensión rigurosa de su funcionamiento y servir tanto como material de aprendizaje como recurso de consulta profesional.
+
+## Índice
+
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Estructuras Lineales](#estructuras-de-datos-lineales)
+  - [Arreglo Estático](#arreglo-estático)
 
 ## Estructura del Proyecto
 
@@ -32,7 +31,7 @@ DataStructure/
 ```
 ---
 
-## Estructuras de Datos Lineales 
+## Estructuras de Datos Lineales
 
 Las estructuras de datos lineales son aquellas en las que los elementos se organizan en una secuencia ordenada, donde cada elemento (excepto el primero y el último) tiene exactamente un predecesor y un sucesor.
 
