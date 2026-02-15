@@ -12,8 +12,9 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
 
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Estructuras Lineales](#estructuras-de-datos-lineales)
-  - [Arreglo Estático](#arreglo-estático)
-  - [Arreglo Dinámico](#arreglo-dinámico)
+  - [Arreglos](#arreglos)
+    - [Arreglo Estático](#arreglo-estático)
+    - [Arreglo Dinámico](#arreglo-dinámico)
   - [Listas Enlazadas](#listas-enlazadas)
     - [Lista Enlazada Simple](#lista-enlazada-simple)
 
@@ -46,6 +47,17 @@ Desde el punto de vista de memoria, las estructuras lineales pueden almacenarse 
 Son fundamentales en ciencias de la computación porque constituyen la base para estructuras más complejas y permiten comprender conceptos esenciales como acceso directo, recorrido secuencial, inserciones, eliminaciones y análisis de complejidad temporal.
 
 ---
+
+## Arreglos
+
+Los arreglos son estructuras de datos lineales que almacenan elementos en posiciones contiguas de memoria, permitiendo que cada elemento sea identificado mediante un índice numérico. Esta organización contigua es su característica fundamental y la razón por la cual ofrecen acceso directo y eficiente a cualquier posición.
+
+En un arreglo, la posición física en memoria puede calcularse matemáticamente a partir del índice del elemento, lo que permite operaciones de acceso en tiempo constante O(1). Esta propiedad los convierte en una de las estructuras más eficientes cuando se requiere lectura rápida de datos mediante índice.
+
+A diferencia de las listas enlazadas, los arreglos no utilizan punteros entre elementos, sino que dependen completamente de su disposición continua en memoria. Esta diferencia implica ventajas en rendimiento de acceso, pero también limitaciones en flexibilidad cuando se requiere redimensionamiento o inserciones intermedias frecuentes.
+
+Conceptualmente, los arreglos representan la forma más básica y fundamental de almacenamiento secuencial. Constituyen la base sobre la cual se construyen estructuras más complejas, como arreglos dinámicos, vectores, buffers y numerosas abstracciones modernas en programación.
+
 
 ### Arreglo Estático
 
