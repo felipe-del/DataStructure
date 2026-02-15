@@ -174,7 +174,7 @@ public:
     struct Iterator {
         SNode<T>* node_;
 
-        Iterator(SNode<T>* n) : node_(n) {}
+        explicit Iterator(SNode<T>* n) : node_(n) {}
 
         T &operator*() { return node_->value_; }
 

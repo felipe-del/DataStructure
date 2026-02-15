@@ -138,4 +138,18 @@ La filosofía de implementación de una SinglyLinkedList moderna en C++ sigue bu
 
 ---
 
+### Lista Enlazada Doble
+
+La Lista Enlazada Doble es una estructura de datos lineal en la que cada elemento se almacena en un nodo que contiene un valor y dos referencias: una al siguiente nodo y otra al nodo anterior. Esta característica permite recorrer la estructura en ambas direcciones, lo que la diferencia de la lista enlazada simple, que solo permite desplazamiento hacia adelante. Gracias a esta bidireccionalidad, se obtiene mayor flexibilidad en operaciones de navegación y modificación.
+
+La estructura mantiene dos punteros principales: head, que referencia al primer nodo, y tail, que referencia al último. Esto permite que las inserciones y eliminaciones en ambos extremos puedan realizarse en tiempo constante O(1), ya que no es necesario recorrer la lista para localizar el inicio o el final. Cada operación ajusta cuidadosamente los enlaces next_ y prev_ para mantener la integridad estructural de la lista.
+
+Las operaciones fundamentales incluyen inserciones al inicio y al final (push_front y push_back), eliminaciones en ambos extremos (pop_front y pop_back), y acceso directo a los elementos extremos mediante front y back. Cuando la lista está vacía, los métodos de acceso y eliminación lanzan una excepción para garantizar seguridad y evitar comportamientos indefinidos. El recorrido completo de la lista tiene complejidad O(n), ya que requiere avanzar nodo por nodo.
+
+Desde el punto de vista de memoria, cada nodo requiere espacio adicional para almacenar dos punteros en lugar de uno, lo que incrementa el consumo respecto a una lista simple. Sin embargo, este costo adicional permite simplificar muchas operaciones que en una lista simple serían más costosas o requerirían recorridos adicionales. La estructura crece y se reduce dinámicamente, sin necesidad de realocar bloques contiguos de memoria.
+
+En términos conceptuales, la Lista Enlazada Doble representa una evolución natural de la lista enlazada simple, proporcionando mayor capacidad de manipulación y navegación a cambio de una ligera mayor complejidad estructural. Es una estructura fundamental para comprender implementaciones más avanzadas como listas circulares dobles, estructuras tipo deque y diversos contenedores utilizados en bibliotecas estándar.
+
+---
+
 _Isaac Brenes_
