@@ -11,6 +11,7 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
 ## Índice
 
 - [Estructura del Proyecto](#estructura-del-proyecto)
+- [Introducción a las Estructuras de Datos](#introducción-a-las-estructuras-de-datos)
 - [Estructuras Lineales](#estructuras-de-datos-lineales)
   - [Arreglos](#arreglos)
     - [Arreglo Estático](#arreglo-estático)
@@ -36,6 +37,22 @@ DataStructure/
 
 ---
 
+## Introducción a las Estructuras de Datos
+
+Las estructuras de datos son formas organizadas de almacenar y gestionar información en memoria, diseñadas para permitir operaciones eficientes de acceso, inserción, eliminación y búsqueda. Constituyen uno de los pilares fundamentales de la informática, ya que determinan directamente el rendimiento de los algoritmos que operan sobre ellas.
+
+En programación, elegir la estructura adecuada puede reducir significativamente la complejidad temporal y espacial de un problema. Por ello, el estudio de las estructuras de datos no se limita a su implementación, sino que implica comprender sus propiedades, ventajas, limitaciones y casos de uso.
+
+Desde un punto de vista conceptual, las estructuras de datos pueden clasificarse en:
+- **Lineales**, donde los elementos siguen una secuencia (arrays, listas, pilas, colas).
+- **No lineales**, donde los elementos forman jerarquías o redes (árboles, grafos).
+- **Basadas en hashing**, orientadas a acceso rápido por clave.
+- **Especializadas** o avanzadas, diseñadas para problemas específicos.
+
+En este recorrido, todas las estructuras serán implementadas manualmente en C++, con el objetivo de comprender no solo su comportamiento abstracto, sino también su funcionamiento interno en memoria, manejo de punteros, control de recursos y eficiencia computacional.
+
+---
+
 ## Estructuras de Datos Lineales
 
 Las estructuras de datos lineales son aquellas en las que los elementos se organizan en una secuencia ordenada, donde cada elemento (excepto el primero y el último) tiene exactamente un predecesor y un sucesor.
@@ -58,6 +75,7 @@ A diferencia de las listas enlazadas, los arreglos no utilizan punteros entre el
 
 Conceptualmente, los arreglos representan la forma más básica y fundamental de almacenamiento secuencial. Constituyen la base sobre la cual se construyen estructuras más complejas, como arreglos dinámicos, vectores, buffers y numerosas abstracciones modernas en programación.
 
+---
 
 ### Arreglo Estático
 
