@@ -1,3 +1,4 @@
+#include "../test/circular_linked_list_test.hpp"
 #include "../test/doubly_linked_list_test.hpp"
 #include "../test/dynamic_array_test.hpp"
 #include "../test/singly_linked_list_test.hpp"
@@ -8,5 +9,6 @@ int main() {
     testDynamicArray();
     testSinglyLinkedList();
     testDoublyLinkedList();
+    testCircularLinkedList();
     return 0;
 }

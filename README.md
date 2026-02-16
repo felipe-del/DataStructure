@@ -182,4 +182,33 @@ En términos conceptuales, la Lista Enlazada Doble representa una evolución nat
 
 ---
 
+### Lista Enlazada Circular
+
+La Lista Enlazada Circular es una variante de la lista enlazada simple en la que el último nodo no apunta a nullptr, sino que enlaza nuevamente con el primer nodo de la estructura. Esto genera un ciclo cerrado, permitiendo recorrer la lista de forma continua sin encontrar un final natural. Debido a esta característica, los recorridos deben controlarse explícitamente para evitar iteraciones infinitas.
+
+En esta implementación se mantiene un puntero tail_, que referencia al último nodo de la lista. El primer nodo puede obtenerse mediante tail_->next_. Esta decisión de diseño simplifica considerablemente las operaciones en los extremos, ya que tanto la inserción al inicio como al final pueden realizarse en tiempo constante O(1). La estructura se aloja dinámicamente en memoria (heap), por lo que su tamaño puede crecer o reducirse según sea necesario.
+
+A diferencia de la lista simple tradicional, donde el final está claramente delimitado por un puntero nulo, en la lista circular no existe un nodo terminal. Esta ausencia obliga a definir cuidadosamente las condiciones de parada en los recorridos y en la implementación de iteradores.
+
+Las operaciones básicas incluyen inserción al inicio (push_front) e inserción al final (push_back), ambas con complejidad O(1). La eliminación del primer nodo (pop_front) también se realiza en O(1), mientras que la eliminación del último nodo (pop_back) requiere recorrer la lista hasta encontrar el nodo anterior al tail_, por lo que tiene complejidad O(n). El acceso a los extremos mediante front y back es constante O(1), mientras que el recorrido completo de la estructura es O(n).
+
+Desde el punto de vista conceptual, la lista enlazada circular es especialmente útil para modelar estructuras repetitivas o rotativas, donde el flujo de elementos debe reiniciarse automáticamente al llegar al final.
+
+#### Ventajas de la Lista Enlazada Circular
+
+- Inserciones eficientes en ambos extremos en tiempo O(1).
+- No requiere memoria contigua.
+- Permite modelar estructuras cíclicas de forma natural.
+- Ideal para algoritmos que requieren rotación constante.
+- Mantiene flexibilidad dinámica en tamaño
+
+#### Limitaciones de la Lista Enlazada Circular
+
+- Acceso aleatorio en tiempo O(n).
+- Eliminación del último nodo requiere recorrido previo.
+- Riesgo de bucles infinitos si no se controlan correctamente los recorridos.
+- Uso adicional de memoria respecto a estructuras contiguas como los arreglos.
+
+---
+
 _Isaac Brenes_
