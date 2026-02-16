@@ -47,6 +47,45 @@ inline void testDoublyLinkedList() {
         std::cout << value << " ";
     std::cout << "\n\n";
 
+    // =====================================================
+    // PRUEBA ITERADOR BIDIRECCIONAL
+    // =====================================================
+
+    std::cout << "Recorrido inverso (rbegin / --): ";
+    for (auto it = list.rbegin(); it != list.rend(); --it)
+        std::cout << *it << " ";
+    std::cout << "\n";
+
+    std::cout << "Post-incremento (it++): ";
+    for (auto it = list.begin(); it != list.end(); it++)
+        std::cout << *it << " ";
+    std::cout << "\n";
+
+    std::cout << "Post-decremento (it-- desde tail): ";
+    for (auto it = list.rbegin(); it != list.rend(); it--)
+        std::cout << *it << " ";
+    std::cout << "\n";
+
+    // --- Modificar valores usando iterador ---
+    std::cout << "\nModificando valores (+10): ";
+    for (auto it = list.begin(); it != list.end(); ++it)
+        *it += 10;
+
+    std::cout << list << "\n";
+
+    // --- Comparación explícita ---
+    auto it1 = list.begin();
+    auto it2 = list.begin();
+
+    std::cout << "\nComparación de iteradores:\n";
+    std::cout << "it1 == it2 ? "
+              << (it1 == it2 ? "Sí" : "No") << "\n";
+
+    ++it2;
+
+    std::cout << "Después de ++it2, it1 == it2 ? "
+              << (it1 == it2 ? "Sí" : "No") << "\n\n";
+
     // --- pop_front y pop_back ---
     list.pop_front();
     list.pop_back();
@@ -80,6 +119,10 @@ inline void testDoublyLinkedList() {
                   << e.what() << "\n";
     }
 
+    // =====================================================
+    // TEST std::string
+    // =====================================================
+
     std::cout << "\n==============================\n";
     std::cout << " TEST DoublyLinkedList<std::string>\n";
     std::cout << "==============================\n\n";
@@ -99,6 +142,10 @@ inline void testDoublyLinkedList() {
     for (const auto &name : strList)
         std::cout << "- " << name << "\n";
 
+    // =====================================================
+    // TEST Person
+    // =====================================================
+
     std::cout << "\n==============================\n";
     std::cout << " TEST DoublyLinkedList<Person>\n";
     std::cout << "==============================\n\n";
@@ -113,7 +160,7 @@ inline void testDoublyLinkedList() {
     for (auto &p : people)
         p.print();
 
-    // --- Movimiento (MUY IMPORTANTE porque no hay copia) ---
+    // --- Movimiento ---
     DoublyLinkedList<Person> movedPeople = std::move(people);
 
     std::cout << "\nDespués de mover:\n";

@@ -250,27 +250,78 @@ public:
 
 
     // ========================================================
-    // ITERADOR (Forward)
-    // Permite usar range-based for
+    // ITERADOR BIDIRECCIONAL
+    // Permite:
+    //  - Avanzar (++)
+    //  - Retroceder (--)
+    //  - Desreferenciar (*)
+    //  - Comparar (!= y ==)
+    // Compatible con range-based for
     // ========================================================
     struct Iterator {
-        DNode<T>* node_;
+        DNode<T>* node_;  // Nodo actual del iterador
 
-        // explicit evita conversiones implícitas desde punteros
+        // Constructor explícito
         explicit Iterator(DNode<T>* n) : node_(n) {}
 
+        // ================================
         // Desreferenciación
-        T& operator*() {
+        // ================================
+        T& operator*() const {
             return node_->value_;
         }
 
-        // Avanzar al siguiente nodo
+        T* operator->() const {
+            return &(node_->value_);
+        }
+
+        // ================================
+        // Avance (pre-incremento)
+        // ++it
+        // ================================
         Iterator& operator++() {
-            node_ = node_->next_;
+            if (node_)
+                node_ = node_->next_;
             return *this;
         }
 
-        // Comparación para finalizar iteración
+        // ================================
+        // Avance (post-incremento)
+        // it++
+        // ================================
+        Iterator operator++(int) {
+            Iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+
+        // ================================
+        // Retroceso (pre-decremento)
+        // --it
+        // ================================
+        Iterator& operator--() {
+            if (node_)
+                node_ = node_->prev_;
+            return *this;
+        }
+
+        // ================================
+        // Retroceso (post-decremento)
+        // it--
+        // ================================
+        Iterator operator--(int) {
+            Iterator temp = *this;
+            --(*this);
+            return temp;
+        }
+
+        // ================================
+        // Comparaciones
+        // ================================
+        bool operator==(const Iterator& other) const {
+            return node_ == other.node_;
+        }
+
         bool operator!=(const Iterator& other) const {
             return node_ != other.node_;
         }
@@ -279,6 +330,8 @@ public:
     Iterator begin() { return Iterator(head_); }
     Iterator end()   { return Iterator(nullptr); }
 
+    Iterator rbegin() { return Iterator(tail_); }
+    Iterator rend()   { return Iterator(nullptr); }
 
     // ========================================================
     // OPERADOR DE IMPRESIÓN

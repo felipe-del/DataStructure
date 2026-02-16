@@ -47,7 +47,7 @@ Desde un punto de vista conceptual, las estructuras de datos pueden clasificarse
 - **Lineales**, donde los elementos siguen una secuencia (arrays, listas, pilas, colas).
 - **No lineales**, donde los elementos forman jerarquías o redes (árboles, grafos).
 - **Basadas en hashing**, orientadas a acceso rápido por clave.
-- **Especializadas** o avanzadas, diseñadas para problemas específicos.
+- **Especializadas o avanzadas**, diseñadas para problemas específicos.
 
 En este recorrido, todas las estructuras serán implementadas manualmente en C++, con el objetivo de comprender no solo su comportamiento abstracto, sino también su funcionamiento interno en memoria, manejo de punteros, control de recursos y eficiencia computacional.
 
