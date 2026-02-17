@@ -1,3 +1,4 @@
+#include "../test/array_stack_test.hpp"
 #include "../test/circular_linked_list_test.hpp"
 #include "../test/doubly_linked_list_test.hpp"
 #include "../test/dynamic_array_test.hpp"
@@ -10,5 +11,6 @@ int main() {
     testSinglyLinkedList();
     testDoublyLinkedList();
     testCircularLinkedList();
+    testArrayStack();
     return 0;
 }

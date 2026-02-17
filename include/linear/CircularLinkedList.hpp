@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <stdexcept>
-#include <utility> // std::move
+#include <utility>
 
 template <typename T>
 class CircularLinkedList {
@@ -12,28 +12,18 @@ private:
        ESTRUCTURA INTERNA DEL NODO
        ===================================================== */
     struct Node {
-        T value_;        // Valor almacenado
-        Node* next_;     // Apunta al siguiente nodo
+        T value_;
+        Node* next_;
 
-        // Constructor copia
-        Node(const T& value) : value_(value), next_(nullptr) {}
+        Node(const T& value)
+            : value_(value), next_(nullptr) {}
 
-        // Constructor movimiento (evita copia innecesaria)
-        Node(T&& value) : value_(std::move(value)), next_(nullptr) {}
+        Node(T&& value)
+            : value_(std::move(value)), next_(nullptr) {}
     };
 
-    Node* tail_;        // Apunta SIEMPRE al último nodo
-    size_t length_;     // Número de elementos
-
-    /*
-        Diseño importante:
-
-        En una lista circular simple:
-
-        - tail_->next_ apunta al primer nodo
-        - El primer nodo NO se guarda directamente
-        - Si está vacía → tail_ == nullptr
-    */
+    Node* tail_;        // Último nodo
+    size_t length_;     // Cantidad de elementos
 
 public:
 
@@ -45,8 +35,17 @@ public:
         : tail_(nullptr), length_(0) {}
 
     ~CircularLinkedList() {
-        clear(); // Liberamos toda la memoria
+        clear();
     }
+
+    // Move constructor
+    CircularLinkedList(CircularLinkedList&& other) noexcept
+        : tail_(other.tail_), length_(other.length_) {
+
+        other.tail_ = nullptr;
+        other.length_ = 0;
+    }
+
 
     /* =====================================================
        MÉTODOS BÁSICOS
@@ -60,10 +59,6 @@ public:
         return length_;
     }
 
-    /*
-        El primer nodo es tail_->next_
-        porque tail_ apunta al último
-    */
     T& front() {
         if (empty())
             throw std::out_of_range("Lista vacía");
@@ -71,9 +66,6 @@ public:
         return tail_->next_->value_;
     }
 
-    /*
-        El último nodo es tail_
-    */
     T& back() {
         if (empty())
             throw std::out_of_range("Lista vacía");
@@ -90,13 +82,9 @@ public:
         Node* node = new Node(value);
 
         if (empty()) {
-            // Si está vacía:
-            // el nodo se apunta a sí mismo
             tail_ = node;
             tail_->next_ = tail_;
-        }
-        else {
-            // Insertamos entre tail_ y el primer nodo
+        } else {
             node->next_ = tail_->next_;
             tail_->next_ = node;
         }
@@ -111,8 +99,7 @@ public:
         if (empty()) {
             tail_ = node;
             tail_->next_ = tail_;
-        }
-        else {
+        } else {
             node->next_ = tail_->next_;
             tail_->next_ = node;
         }
@@ -124,11 +111,6 @@ public:
        INSERTAR AL FINAL
        ===================================================== */
 
-    /*
-        Truco elegante:
-        Insertamos al inicio
-        y luego movemos tail_
-    */
     void push_back(const T& value) {
         push_front(value);
         tail_ = tail_->next_;
@@ -151,12 +133,9 @@ public:
         Node* head = tail_->next_;
 
         if (length_ == 1) {
-            // Solo había un nodo
             delete head;
             tail_ = nullptr;
-        }
-        else {
-            // Saltamos el primer nodo
+        } else {
             tail_->next_ = head->next_;
             delete head;
         }
@@ -176,27 +155,23 @@ public:
         if (length_ == 1) {
             delete tail_;
             tail_ = nullptr;
-        }
-        else {
-            /*
-                Debemos encontrar el nodo
-                anterior al tail_
-            */
-            Node* current = tail_->next_; // empezamos desde el primero
+        } else {
+
+            Node* current = tail_->next_;
 
             while (current->next_ != tail_)
                 current = current->next_;
 
-            current->next_ = tail_->next_; // cerramos ciclo
+            current->next_ = tail_->next_;
             delete tail_;
-            tail_ = current; // nuevo último
+            tail_ = current;
         }
 
         --length_;
     }
 
     /* =====================================================
-       LIMPIAR TODA LA LISTA
+       LIMPIAR
        ===================================================== */
 
     void clear() {
@@ -205,48 +180,41 @@ public:
     }
 
     /* =====================================================
-       ITERADOR
+       ITERADOR CORREGIDO
        ===================================================== */
-
-    /*
-        Problema:
-        En lista circular nunca hay nullptr final.
-
-        Solución:
-        Controlamos cuántos elementos hemos recorrido.
-    */
 
     class Iterator {
     private:
-        Node* current_;   // Nodo actual
-        size_t count_;    // Cuántos elementos hemos recorrido
-        size_t total_;    // Total a recorrer
+        Node* current_;
+        size_t count_;
+        size_t total_;
 
     public:
 
-        Iterator(Node* start, size_t total, size_t count = 0)
-            : current_(start), count_(count), total_(total) {}
+        Iterator(Node* node, size_t total, size_t count = 0)
+            : current_(node), count_(count), total_(total) {}
 
         T& operator*() {
             return current_->value_;
         }
 
         Iterator& operator++() {
-            if (count_ < total_) {
+
+            ++count_;
+
+            if (count_ < total_)
                 current_ = current_->next_;
-                ++count_;
-            }
+            else
+                current_ = nullptr;  // CLAVE: convertimos en end real
+
             return *this;
         }
 
         bool operator!=(const Iterator& other) const {
-            return count_ != other.count_;
+            return current_ != other.current_;
         }
     };
 
-    /*
-        begin() comienza en el primer nodo
-    */
     Iterator begin() {
         if (empty())
             return Iterator(nullptr, 0);
@@ -254,9 +222,6 @@ public:
         return Iterator(tail_->next_, length_);
     }
 
-    /*
-        end() simplemente tiene el contador completo
-    */
     Iterator end() {
         return Iterator(nullptr, length_, length_);
     }
@@ -277,7 +242,6 @@ public:
 
         Node* current = list.tail_->next_;
 
-        // Recorremos exactamente length_ veces
         for (size_t i = 0; i < list.length_; ++i) {
             os << current->value_ << " ";
             current = current->next_;
@@ -285,5 +249,21 @@ public:
 
         os << "]";
         return os;
+    }
+
+    CircularLinkedList& operator=(CircularLinkedList&& other) noexcept {
+
+        if (this != &other) {
+
+            clear();
+
+            tail_ = other.tail_;
+            length_ = other.length_;
+
+            other.tail_ = nullptr;
+            other.length_ = 0;
+        }
+
+        return *this;
     }
 };

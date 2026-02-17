@@ -18,6 +18,10 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
     - [Arreglo Dinámico](#arreglo-dinámico)
   - [Listas Enlazadas](#listas-enlazadas)
     - [Lista Enlazada Simple](#lista-enlazada-simple)
+    - [Lista Enlazada Doble](#lista-enlazada-doble)
+    - [Lista Enlazada Circular](#lista-enlazada-circular)
+  - [Pilas](#pilas)
+    - [Pila (creada con Arreglo Dinámico)](#pila-creada-con-arreglo-dinámico)
 
 ## Estructura del Proyecto
 
@@ -208,6 +212,38 @@ Desde el punto de vista conceptual, la lista enlazada circular es especialmente 
 - Eliminación del último nodo requiere recorrido previo.
 - Riesgo de bucles infinitos si no se controlan correctamente los recorridos.
 - Uso adicional de memoria respecto a estructuras contiguas como los arreglos.
+
+---
+
+## Pilas 
+
+La Pila es una estructura de datos lineal que sigue el principio LIFO (Last In, First Out), es decir, el último elemento en entrar es el primero en salir. Su funcionamiento puede compararse con una pila de libros: solo es posible agregar o retirar elementos desde la parte superior, lo que impone una restricción clara en la forma en que se accede a los datos.
+
+A diferencia de otras estructuras lineales como las listas enlazadas o los arreglos, la pila no permite acceso aleatorio a sus elementos. Todas las operaciones se realizan exclusivamente sobre el tope (top), lo que simplifica su diseño y garantiza tiempos de ejecución constantes para sus operaciones fundamentales.
+
+Las operaciones básicas de una pila son push (insertar un elemento en el tope), pop (eliminar el elemento superior) y top o peek (consultar el elemento superior sin eliminarlo). Cuando la pila está vacía, no es posible realizar operaciones de extracción o consulta sin provocar un error lógico, por lo que es común incluir un método empty() para verificar su estado.
+
+Desde el punto de vista de implementación, una pila puede construirse sobre distintas estructuras subyacentes, como arreglos dinámicos o listas enlazadas. Sin embargo, independientemente de su implementación interna, el comportamiento externo siempre respeta la política LIFO.
+
+Las pilas son ampliamente utilizadas en programación, especialmente en la gestión de llamadas a funciones (call stack), evaluación de expresiones, algoritmos de backtracking, validación de paréntesis y recorridos de estructuras como árboles y grafos. Su simplicidad conceptual y eficiencia operativa la convierten en una de las estructuras fundamentales dentro del estudio de estructuras de datos.
+
+---
+
+### Pila (implementada con Arreglo Dinámico)
+
+La implementación de la pila en este proyecto se realiza mediante la clase ArrayStack<T>, la cual está construida sobre el DynamicArray<T> desarrollado previamente en el repositorio. Esta decisión de diseño permite reutilizar la lógica de gestión de memoria dinámica y control de capacidad, manteniendo la simplicidad conceptual de la pila mientras se garantiza eficiencia y escalabilidad. En lugar de administrar directamente memoria cruda, la pila delega esa responsabilidad al arreglo dinámico subyacente.
+
+Internamente, la pila mantiene una relación directa entre el concepto de “tope” (top) y el último elemento almacenado en el arreglo dinámico. Esto significa que el elemento superior siempre corresponde a la última posición válida del arreglo. Gracias a esta correspondencia natural, las operaciones fundamentales se implementan de manera directa y eficiente, sin necesidad de estructuras adicionales o punteros extra.
+
+La operación push se implementa utilizando push_back del arreglo dinámico, agregando el nuevo elemento al final. La operación pop elimina el último elemento mediante pop_back, manteniendo el principio LIFO (Last In, First Out). Por su parte, top accede al último elemento mediante indexación directa. Las funciones size y empty simplemente delegan su comportamiento al contenedor interno, evitando duplicación de lógica y manteniendo coherencia estructural.
+
+En términos de complejidad temporal, las operaciones pop, top, size y empty tienen complejidad constante O(1). La operación push también es O(1) en promedio, aunque puede convertirse ocasionalmente en O(n) cuando el arreglo necesita redimensionarse. Sin embargo, este costo ocurre de manera esporádica, por lo que se considera O(1) amortizado.
+
+La clase soporta inserción tanto por copia como por movimiento, permitiendo trabajar eficientemente con objetos pesados. Al aceptar tanto referencias constantes como rvalues, la pila puede aprovechar std::move cuando sea apropiado, evitando copias innecesarias. Debido a que el DynamicArray ya gestiona correctamente sus recursos, la pila hereda automáticamente un comportamiento seguro en cuanto a manejo de memoria y destrucción de objetos.
+
+En cuanto al manejo de errores, la implementación lanza una excepción std::out_of_range cuando se intenta acceder o eliminar un elemento de una pila vacía. Esto garantiza un comportamiento seguro y predecible, evitando accesos inválidos y posibles errores silenciosos.
+
+Desde el punto de vista conceptual, esta implementación no busca simplemente replicar el comportamiento de std::stack, sino comprender profundamente cómo se construye una abstracción LIFO desde cero. También permite observar cómo una estructura aparentemente simple puede apoyarse en otra más fundamental, evidenciando la naturaleza composicional de las estructuras de datos. La pila no necesita saber cómo se gestiona la memoria internamente; solo necesita confiar en que el contenedor subyacente cumple su contrato.
 
 ---
 
