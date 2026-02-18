@@ -1,48 +1,62 @@
 #pragma once
 
 #include <stdexcept>
-#include <utility>     // std::move
-#include "DynamicArray.hpp"
+#include <utility>      // std::move
+#include <ostream>
+#include "SinglyLinkedList.hpp"
 
 /*
-    ArrayStack (Pila de Array) basada en arreglo dinámico.
+    LinkedStack (Pila basada en lista enlazada simple)
 
     Principio:
     LIFO (Last In, First Out)
 
-    El elemento superior (top) será
-    siempre el último elemento del arreglo.
+    Diseño:
+    - El elemento superior (top) será el primero de la lista.
+    - Internamente reutilizamos SinglyLinkedList.
+    - push  -> push_front
+    - pop   -> pop_front
+    - top   -> front
+
+    Ventaja:
+    - No duplicamos lógica de nodos.
+    - Reutilizamos código probado.
+    - push y pop son O(1) garantizado.
 */
 
 template<typename T>
-class ArrayStack {
+class LinkedStack {
 private:
     /* =====================================================
-       ESTRUCTURA INTERNA
+       CONTENEDOR INTERNO
        ===================================================== */
 
     /*
-        Usamos DynamicArray como contenedor interno.
+        Usamos SinglyLinkedList como base.
 
-        Ventaja:
-        - Maneja crecimiento automático.
-        - Controla capacidad.
-        - Ya implementa push_back y pop_back.
+        La pila NO maneja nodos directamente.
+        Solo delega comportamiento.
     */
-    DynamicArray<T> data_;
+    SinglyLinkedList<T> data_;
 
 public:
     /* =====================================================
        CONSTRUCTORES
        ===================================================== */
 
-    ArrayStack() = default;
+    LinkedStack() = default;
 
-    explicit ArrayStack(std::size_t initialCapacity)
-        : data_(initialCapacity) {
-    }
+    ~LinkedStack() = default;
 
-    ~ArrayStack() = default;
+    // Evitamos copia accidental (hereda restricción de la lista)
+    LinkedStack(const LinkedStack &) = delete;
+
+    LinkedStack &operator=(const LinkedStack &) = delete;
+
+    // Permitimos movimiento
+    LinkedStack(LinkedStack &&) noexcept = default;
+
+    LinkedStack &operator=(LinkedStack &&) noexcept = default;
 
     /* =====================================================
        MÉTODOS BÁSICOS
@@ -65,20 +79,21 @@ public:
     /*
         Accede al elemento superior (sin eliminarlo).
 
-        El top está al final del arreglo.
+        En esta implementación,
+        el top es el primer nodo.
     */
     T &top() {
         if (empty())
             throw std::out_of_range("Stack: empty stack");
 
-        return data_[data_.size() - 1];
+        return data_.front();
     }
 
     const T &top() const {
         if (empty())
             throw std::out_of_range("Stack: empty stack");
 
-        return data_[data_.size() - 1];
+        return data_.front();
     }
 
     /* =====================================================
@@ -87,10 +102,12 @@ public:
 
     /*
         Inserta por copia.
-        Se agrega al final del arreglo.
+
+        Agregamos al inicio de la lista
+        para mantener O(1).
     */
     void push(const T &value) {
-        data_.push_back(value);
+        data_.push_front(value);
     }
 
     /*
@@ -98,7 +115,7 @@ public:
         Evita copia innecesaria.
     */
     void push(T &&value) {
-        data_.push_back(std::move(value));
+        data_.push_front(std::move(value));
     }
 
     /* =====================================================
@@ -106,16 +123,15 @@ public:
        ===================================================== */
 
     /*
-        Elimina el elemento superior.
+        Eliminamos el elemento superior.
 
-        Solo reducimos el tamaño lógico
-        del DynamicArray.
+        Delegamos a pop_front().
     */
     void pop() {
         if (empty())
             throw std::out_of_range("Stack: empty stack");
 
-        data_.pop_back();
+        data_.pop_front();
     }
 
     /* =====================================================
@@ -123,8 +139,7 @@ public:
        ===================================================== */
 
     /*
-        Elimina todos los elementos.
-        No libera necesariamente la capacidad.
+        Eliminamos todos los elementos.
     */
     void clear() noexcept {
         data_.clear();
@@ -135,15 +150,17 @@ public:
        ===================================================== */
 
     /*
-        Mostramos desde base → top
-        (orden natural del arreglo).
+        Mostramos desde top → base.
+
+        Coincide con el orden natural
+        de la lista (head hacia adelante).
     */
     friend std::ostream &operator<<(std::ostream &os,
-                                    const ArrayStack &stack) {
+                                    const LinkedStack &stack) {
         os << "[ ";
 
-        for (std::size_t i = 0; i < stack.data_.size(); ++i)
-            os << stack.data_[i] << " ";
+        for (const auto &value: stack.data_)
+            os << value << " ";
 
         os << "]";
         return os;

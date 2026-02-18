@@ -189,6 +189,9 @@ public:
     Iterator begin() { return Iterator(head_); }
     Iterator end() { return Iterator(nullptr); }
 
+    Iterator begin() const { return Iterator(head_); }
+    Iterator end() const { return Iterator(nullptr); }
+
     // Operador de salida
     friend std::ostream &operator<<(std::ostream &os, const SinglyLinkedList &list) {
         os << "[";

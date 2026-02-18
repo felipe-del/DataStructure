@@ -215,7 +215,7 @@ Desde el punto de vista conceptual, la lista enlazada circular es especialmente 
 
 ---
 
-## Pilas 
+## Pilas
 
 La Pila es una estructura de datos lineal que sigue el principio LIFO (Last In, First Out), es decir, el último elemento en entrar es el primero en salir. Su funcionamiento puede compararse con una pila de libros: solo es posible agregar o retirar elementos desde la parte superior, lo que impone una restricción clara en la forma en que se accede a los datos.
 
@@ -244,6 +244,26 @@ La clase soporta inserción tanto por copia como por movimiento, permitiendo tra
 En cuanto al manejo de errores, la implementación lanza una excepción std::out_of_range cuando se intenta acceder o eliminar un elemento de una pila vacía. Esto garantiza un comportamiento seguro y predecible, evitando accesos inválidos y posibles errores silenciosos.
 
 Desde el punto de vista conceptual, esta implementación no busca simplemente replicar el comportamiento de std::stack, sino comprender profundamente cómo se construye una abstracción LIFO desde cero. También permite observar cómo una estructura aparentemente simple puede apoyarse en otra más fundamental, evidenciando la naturaleza composicional de las estructuras de datos. La pila no necesita saber cómo se gestiona la memoria internamente; solo necesita confiar en que el contenedor subyacente cumple su contrato.
+
+---
+
+### Pila (implementada con Lista Enlazada)
+
+Además de la versión basada en arreglo dinámico, este proyecto incluye una implementación alternativa de pila construida sobre una Lista Enlazada Simple (SinglyLinkedList). En este caso, la estructura subyacente no almacena los elementos en memoria contigua, sino que los organiza mediante nodos enlazados dinámicamente en el heap.
+
+El diseño mantiene el mismo comportamiento abstracto LIFO (Last In, First Out), pero cambia la estrategia interna de almacenamiento. En lugar de utilizar indexación y control de capacidad, la pila delega la gestión de nodos a la lista enlazada, aprovechando su eficiencia en inserciones y eliminaciones en los extremos.
+
+En esta implementación, el tope de la pila corresponde al inicio de la lista (head). Esta decisión no es arbitraria: insertar y eliminar al inicio de una lista enlazada simple tiene complejidad constante O(1), mientras que hacerlo al final podría requerir recorrido adicional si no se gestionara adecuadamente el puntero tail_. Por lo tanto, mapear el top de la pila con el head de la lista permite mantener todas las operaciones fundamentales en tiempo constante.
+
+La operación push se implementa utilizando push_front de la lista enlazada, agregando el nuevo elemento al inicio. La operación pop utiliza pop_front, eliminando el nodo que representa el tope actual. El método top retorna el valor del primer nodo mediante front(), sin modificar la estructura. Las funciones empty() y size() delegan directamente en la lista subyacente.
+
+Desde el punto de vista de complejidad temporal, todas las operaciones principales (push, pop, top, size, empty) tienen complejidad O(1). A diferencia de la pila basada en arreglo dinámico, aquí no existe costo amortizado por redimensionamiento, ya que cada inserción implica simplemente la creación de un nuevo nodo. Sin embargo, cada elemento requiere memoria adicional para almacenar el puntero next_, lo que implica un mayor consumo de memoria respecto a una implementación contigua.
+
+En cuanto al manejo de memoria, la lista enlazada es responsable de crear y liberar los nodos dinámicamente. La pila, al componerse sobre ella, hereda automáticamente un comportamiento seguro en términos de destrucción y liberación de recursos. Además, al soportar tanto inserciones por copia como por movimiento, la estructura permite trabajar eficientemente con tipos complejos, aprovechando las ventajas de std::move.
+
+Esta implementación pone de manifiesto un principio importante en el diseño de estructuras de datos: la abstracción y la composición. La pila no necesita conocer los detalles internos de la lista enlazada; únicamente utiliza su interfaz pública. Esto demuestra cómo estructuras más complejas pueden construirse a partir de componentes fundamentales, respetando el principio de responsabilidad única y promoviendo reutilización de código.
+
+Desde una perspectiva académica, comparar la pila basada en arreglo dinámico con la pila basada en lista enlazada permite analizar ventajas y desventajas de cada enfoque. La versión con arreglo ofrece mejor localidad de memoria y menor sobrecosto por elemento, mientras que la versión con lista evita redimensionamientos y no requiere bloques contiguos de memoria. Ambas respetan el mismo contrato lógico LIFO, evidenciando que una estructura abstracta puede tener múltiples implementaciones internas sin alterar su comportamiento externo.
 
 ---
 
