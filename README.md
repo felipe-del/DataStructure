@@ -267,4 +267,28 @@ Desde una perspectiva académica, comparar la pila basada en arreglo dinámico c
 
 ---
 
+### MinStack (Pila con acceso al mínimo en O(1))
+
+La MinStack es una variación de la pila tradicional que, además de respetar el comportamiento LIFO (Last In, First Out), permite obtener el elemento mínimo actual en tiempo constante O(1). En una pila convencional, determinar el mínimo requeriría recorrer todos los elementos almacenados, lo que implica una complejidad O(n). La MinStack resuelve esta limitación mediante un diseño que mantiene información auxiliar actualizada en cada operación.
+
+La implementación se basa en el principio de composición, utilizando dos pilas internas. La primera almacena todos los elementos insertados y se comporta como una pila estándar. La segunda mantiene un historial de los valores mínimos conforme se insertan elementos. De esta forma, el mínimo actual siempre se encuentra en el tope de la pila auxiliar, lo que permite acceder a él en tiempo constante sin necesidad de recorrer la estructura principal.
+
+Cada vez que se ejecuta una operación push, el nuevo valor se inserta en la pila principal. Adicionalmente, si la pila de mínimos está vacía o el nuevo valor es menor o igual al mínimo actual, también se inserta en la pila auxiliar. Esta condición garantiza que se manejen correctamente los valores duplicados del mínimo. Cuando se realiza un pop, si el elemento eliminado coincide con el mínimo actual, también se elimina de la pila auxiliar, manteniendo la coherencia entre ambas estructuras.
+
+Las operaciones principales que soporta la MinStack son:
+- push(value)
+- pop()
+- top()
+- getMin()	
+- empty()
+- size()
+
+Desde el punto de vista de complejidad temporal, todas las operaciones fundamentales se ejecutan en O(1), incluyendo la obtención del mínimo. Esta eficiencia se logra gracias al almacenamiento adicional que mantiene la pila auxiliar. En términos de complejidad espacial, el consumo extra puede llegar a O(n) en el peor caso, por ejemplo cuando los elementos se insertan en orden estrictamente decreciente, ya que cada nuevo valor se convierte en el nuevo mínimo.
+
+La MinStack requiere que el tipo genérico utilizado soporte operadores de comparación, ya que el diseño depende de evaluar relaciones como menor o igual e igualdad. Además, el uso de almacenamiento auxiliar representa un patrón común en estructuras de datos avanzadas: intercambiar memoria adicional por mejoras significativas en el tiempo de ejecución.
+
+Conceptualmente, esta estructura es un ejemplo claro de cómo extender una abstracción clásica mediante información complementaria, manteniendo la interfaz original pero enriqueciendo sus capacidades. La MinStack demuestra que una estructura simple puede optimizarse significativamente mediante un diseño cuidadoso sin alterar su comportamiento externo fundamental.
+
+---
+
 _Isaac Brenes_
