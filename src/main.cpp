@@ -4,6 +4,7 @@
 #include "../test/dynamic_array_test.hpp"
 #include "../test/linked_stack_test.hpp"
 #include "../test/MinStack.hpp"
+#include "../test/queue_test.hpp"
 #include "../test/singly_linked_list_test.hpp"
 #include "../test/static_array_test.hpp"
 
@@ -16,5 +17,6 @@ int main() {
     testArrayStack();
     testLinkedStack();
     testMinStack();
+    testQueue();
     return 0;
 }

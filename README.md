@@ -22,6 +22,9 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
     - [Lista Enlazada Circular](#lista-enlazada-circular)
   - [Pilas](#pilas)
     - [Pila (creada con Arreglo Dinámico)](#pila-creada-con-arreglo-dinámico)
+    - [Pila (creada con Lista Enlazada)](#pila-creada-con-lista-enlazada)
+    - [MinStack (Pila con acceso al mínimo en O(1))](#minstack-pila-con-acceso-al-mínimo-en-o1)
+  - [Colas](#colas)
 
 ## Estructura del Proyecto
 
@@ -288,6 +291,24 @@ Desde el punto de vista de complejidad temporal, todas las operaciones fundament
 La MinStack requiere que el tipo genérico utilizado soporte operadores de comparación, ya que el diseño depende de evaluar relaciones como menor o igual e igualdad. Además, el uso de almacenamiento auxiliar representa un patrón común en estructuras de datos avanzadas: intercambiar memoria adicional por mejoras significativas en el tiempo de ejecución.
 
 Conceptualmente, esta estructura es un ejemplo claro de cómo extender una abstracción clásica mediante información complementaria, manteniendo la interfaz original pero enriqueciendo sus capacidades. La MinStack demuestra que una estructura simple puede optimizarse significativamente mediante un diseño cuidadoso sin alterar su comportamiento externo fundamental.
+
+---
+
+## Colas
+
+La Queue es una estructura de datos lineal que sigue el principio FIFO (First In, First Out), lo que significa que el primer elemento que se inserta es el primero en eliminarse. Su comportamiento es comparable al de una fila de personas: quien llega primero es atendido primero. Esta característica define completamente su lógica interna y la diferencia claramente de otras estructuras lineales.
+
+A diferencia del Stack, que funciona bajo el principio LIFO (Last In, First Out), la Queue trabaja con dos extremos bien definidos. Las inserciones se realizan en la parte posterior de la estructura, mientras que las eliminaciones se efectúan desde el frente. Esta separación entre el punto de entrada y el punto de salida es lo que garantiza el orden secuencial de procesamiento.
+
+Desde el punto de vista de implementación, una Queue básica puede construirse utilizando una lista enlazada simple o un arreglo. En el caso de la lista enlazada, se mantienen dos referencias: una al primer elemento y otra al último. Esto permite que tanto la inserción como la eliminación se realicen en tiempo constante, sin necesidad de recorrer la estructura completa. Este diseño asegura eficiencia y simplicidad conceptual.
+
+Las operaciones fundamentales de una Queue incluyen la inserción de elementos al final, la eliminación desde el frente, el acceso al elemento frontal, el acceso al elemento final, la verificación de si está vacía y la consulta de la cantidad de elementos almacenados. Todas estas operaciones pueden diseñarse para ejecutarse en tiempo constante, lo que hace que la Queue sea adecuada para sistemas que requieren procesamiento ordenado y eficiente.
+
+En aplicaciones prácticas, la Queue se utiliza en sistemas de gestión de tareas, en la administración de solicitudes en servidores, en algoritmos de recorrido como la búsqueda en anchura (BFS), en simulaciones de colas y en buffers de comunicación. Su modelo de funcionamiento la convierte en una herramienta esencial cuando el orden de llegada debe respetarse estrictamente.
+
+La implementación desarrollada en este proyecto emplea una lista enlazada simple, lo que permite que la estructura crezca dinámicamente según la necesidad, sin requerir redimensionamiento manual. Además, se garantiza que las operaciones principales mantengan complejidad constante y un manejo seguro de memoria.
+
+En síntesis, la Queue es una estructura fundamental dentro de las estructuras lineales. Comprender su comportamiento interno y sus invariantes es clave antes de avanzar hacia variantes más especializadas como la Circular Queue o la Priority Queue, que introducen optimizaciones o comportamientos adicionales sobre esta base conceptual.
 
 ---
 
