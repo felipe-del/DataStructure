@@ -111,7 +111,7 @@ Desde una perspectiva conceptual, el Arreglo Estático representa la forma más 
 
 ### Arreglo Dinámico
 
-El Arreglo Dinámico (Dynamic Array) es una extensión del concepto de arreglo estático, diseñado para superar la limitación de tamaño fijo y permitir que la estructura crezca o se reduzca dinámicamente según las necesidades del programa.
+El Arreglo Dinámico es una extensión del concepto de arreglo estático, diseñado para superar la limitación de tamaño fijo y permitir que la estructura crezca o se reduzca dinámicamente según las necesidades del programa.
 
 A diferencia del arreglo estático, cuya capacidad se define en tiempo de compilación, el arreglo dinámico gestiona su memoria en el heap, aumentando su capacidad automáticamente cuando se supera el límite actual, o permitiendo redimensionamiento manual mediante funciones específicas.
 
