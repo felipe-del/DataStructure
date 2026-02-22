@@ -25,6 +25,7 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
     - [Pila (creada con Lista Enlazada)](#pila-creada-con-lista-enlazada)
     - [MinStack (Pila con acceso al mínimo en O(1))](#minstack-pila-con-acceso-al-mínimo-en-o1)
   - [Colas](#colas)
+    - [Colas Circulares](#colas-circulares)
 
 ## Estructura del Proyecto
 
@@ -311,5 +312,23 @@ La implementación desarrollada en este proyecto emplea una lista enlazada simpl
 En síntesis, la Queue es una estructura fundamental dentro de las estructuras lineales. Comprender su comportamiento interno y sus invariantes es clave antes de avanzar hacia variantes más especializadas como la Circular Queue o la Priority Queue, que introducen optimizaciones o comportamientos adicionales sobre esta base conceptual.
 
 ---
+
+### Colas Circulares
+
+La Circular Queue es una variante de la cola tradicional diseñada para optimizar el uso de memoria cuando se implementa sobre un arreglo de tamaño fijo. Mientras que una Queue básica basada en arreglo puede desperdiciar espacio cuando el frente avanza, la Circular Queue resuelve este problema reutilizando las posiciones liberadas mediante una técnica conocida como aritmética modular. De esta forma, el arreglo se comporta como si sus extremos estuvieran conectados, aunque físicamente siga siendo un bloque lineal de memoria.
+
+La filosofía de la cola circular no consiste en enlazar nodos formando un ciclo, sino en tratar los índices del arreglo como si se movieran en un entorno circular. Cuando el índice que indica la posición de inserción alcanza el final del arreglo, vuelve automáticamente al inicio utilizando el operador módulo. Esta técnica permite que los espacios liberados por operaciones de eliminación puedan reutilizarse sin necesidad de desplazar elementos ni redimensionar el contenedor.
+
+En la implementación presentada, la estructura mantiene cuatro atributos fundamentales: un arreglo dinámico que almacena los elementos, la capacidad máxima del buffer, un índice que representa el frente de la cola, un índice que indica la próxima posición de inserción y un contador que registra la cantidad actual de elementos. El índice de frente siempre apunta al primer elemento válido, mientras que el índice de inserción señala la siguiente posición libre. El tamaño permite diferenciar correctamente entre los estados de vacío y lleno, evitando ambigüedades cuando ambos índices coinciden.
+
+Cada operación de inserción coloca el nuevo elemento en la posición indicada por el índice posterior y luego avanza dicho índice de forma circular. De manera similar, la operación de eliminación no borra físicamente el dato almacenado, sino que simplemente avanza el índice frontal. Esta decisión de diseño evita movimientos innecesarios en memoria y garantiza que tanto la inserción como la eliminación se ejecuten en tiempo constante O(1).
+
+Un aspecto clave de la Circular Queue es la gestión explícita del estado lleno. Dado que la estructura utiliza un arreglo de tamaño fijo, es necesario verificar si el número de elementos ha alcanzado la capacidad máxima antes de permitir nuevas inserciones. Esta verificación preserva la coherencia interna y evita sobrescrituras accidentales. Del mismo modo, se controla el estado vacío para impedir accesos inválidos al frente o al final de la estructura.
+
+Desde el punto de vista de complejidad temporal, todas las operaciones principales —inserción, eliminación, acceso al frente y acceso al último elemento— se ejecutan en tiempo constante. La estructura no requiere desplazamientos de datos ni reasignaciones dinámicas durante su funcionamiento normal. En términos de complejidad espacial, el consumo es fijo y está determinado por la capacidad establecida en el momento de la construcción.
+
+Conceptualmente, la Circular Queue representa una optimización sobre la cola implementada con arreglo simple. Su diseño demuestra cómo una mejora en el manejo de índices puede resolver el problema del desperdicio de memoria sin alterar el comportamiento FIFO original. Esta estructura es especialmente útil en sistemas embebidos, buffers de comunicación, procesamiento de flujos de datos y cualquier escenario donde se requiera un contenedor eficiente con capacidad acotada y comportamiento determinista.
+
+### Colas de Prioridad [TODO]
 
 _Isaac Brenes_
