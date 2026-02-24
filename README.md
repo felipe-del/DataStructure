@@ -21,8 +21,8 @@ Todas las estructuras han sido implementadas desde cero, sin utilizar contenedor
     - [Lista Enlazada Doble](#lista-enlazada-doble)
     - [Lista Enlazada Circular](#lista-enlazada-circular)
   - [Pilas](#pilas)
-    - [Pila (creada con Arreglo Dinámico)](#pila-creada-con-arreglo-dinámico)
-    - [Pila (creada con Lista Enlazada)](#pila-creada-con-lista-enlazada)
+    - [Pila (implementada con Arreglo Dinámico)](#pila-implementada-con-arreglo-dinámico)
+    - [Pila (implementada con Lista Enlazada)](#pila-implementada-con-lista-enlazada)
     - [MinStack (Pila con acceso al mínimo en O(1))](#minstack-pila-con-acceso-al-mínimo-en-o1)
   - [Colas](#colas)
     - [Colas Circulares](#colas-circulares)
@@ -329,6 +329,22 @@ Desde el punto de vista de complejidad temporal, todas las operaciones principal
 
 Conceptualmente, la Circular Queue representa una optimización sobre la cola implementada con arreglo simple. Su diseño demuestra cómo una mejora en el manejo de índices puede resolver el problema del desperdicio de memoria sin alterar el comportamiento FIFO original. Esta estructura es especialmente útil en sistemas embebidos, buffers de comunicación, procesamiento de flujos de datos y cualquier escenario donde se requiera un contenedor eficiente con capacidad acotada y comportamiento determinista.
 
-### Colas de Prioridad [TODO]
+### Colas de Prioridad
+
+La Cola de Prioridad (Priority Queue) es una estructura de datos lineal abstracta en la que los elementos no se atienden estrictamente según el orden de llegada, sino de acuerdo con un criterio de prioridad. A diferencia de una Queue tradicional, donde se respeta el principio FIFO (First In, First Out), en una Cola de Prioridad el elemento que se elimina es siempre aquel que posee mayor (o menor) prioridad según la regla definida. Esto implica que el orden de procesamiento ya no depende únicamente del momento de inserción, sino de una relación de comparación entre los elementos almacenados.
+
+El comportamiento de esta estructura puede entenderse como una generalización de la cola clásica. Mientras que en una Queue común el primer elemento insertado es el primero en salir, en una Cola de Prioridad cada inserción reorganiza potencialmente la estructura interna para mantener una propiedad de orden. De este modo, el elemento con mayor prioridad se mantiene accesible de forma inmediata, garantizando eficiencia en la operación de consulta del elemento principal.
+
+Desde el punto de vista de implementación, una de las formas más eficientes de construir una Cola de Prioridad es mediante un Heap Binario. Un heap es una estructura de datos basada en un árbol binario completo que puede representarse internamente mediante un arreglo dinámico. En un Max-Heap, cada nodo padre es mayor o igual que sus hijos, lo que asegura que el elemento de mayor valor se encuentre siempre en la raíz. En un Min-Heap, ocurre lo contrario: el menor elemento ocupa la raíz. Esta representación permite mantener el orden de prioridad con un uso eficiente de memoria y sin necesidad de estructuras enlazadas adicionales.
+
+Las operaciones fundamentales de una Cola de Prioridad incluyen la inserción de un nuevo elemento, la eliminación del elemento de mayor prioridad y el acceso directo al elemento principal. La inserción consiste en agregar el nuevo elemento al final del arreglo y luego restaurar la propiedad del heap desplazándolo hacia arriba hasta su posición correcta. La eliminación implica mover el último elemento a la raíz y reordenar hacia abajo para restablecer la estructura. Ambas operaciones tienen una complejidad temporal de O(log n), mientras que el acceso al elemento principal se realiza en tiempo constante O(1).
+
+En términos de aplicaciones prácticas, las Colas de Prioridad son esenciales en algoritmos y sistemas donde el orden de procesamiento depende de criterios dinámicos. Se utilizan en algoritmos de grafos como Dijkstra y Prim, en sistemas de planificación de tareas, en simuladores de eventos discretos, en manejo de interrupciones en sistemas operativos y en motores de búsqueda donde ciertos elementos deben procesarse antes que otros según su importancia.
+
+En la implementación desarrollada en este proyecto, la Cola de Prioridad se construye utilizando un arreglo dinámico que representa un heap binario máximo. La estructura mantiene la propiedad del heap mediante operaciones internas de reordenamiento que garantizan consistencia tras cada inserción o eliminación. Además, se controla explícitamente la capacidad máxima, el tamaño actual y el estado de vacío o lleno, asegurando un manejo seguro de memoria y un comportamiento predecible.
+
+En síntesis, la Cola de Prioridad amplía el concepto de la Queue tradicional al incorporar un criterio de orden basado en prioridad en lugar de tiempo de llegada. Su eficiencia y versatilidad la convierten en una estructura fundamental dentro del estudio de estructuras de datos avanzadas, especialmente cuando el problema requiere procesar primero los elementos más relevantes según una condición definida.
+
+### Cola Doble (Double Ended Queue - Deque) [TODO]
 
 _Isaac Brenes_
